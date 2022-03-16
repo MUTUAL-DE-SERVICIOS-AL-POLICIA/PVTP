@@ -5,7 +5,7 @@
         <v-card flat>
           <v-card-title class="pa-0 pb-3">
             <v-toolbar dense color="tertiary" class="font-weight-regular">
-              <v-toolbar-title>PRÉSTAMOS DESEMBOLSADOS</v-toolbar-title>
+              <v-toolbar-title>PRÉSTAMOS DESEMBOLSADOS </v-toolbar-title>
             </v-toolbar>
           </v-card-title>
           <template>
@@ -26,6 +26,7 @@
                             <v-col cols="12" class="pa-0">
                               <v-layout row wrap>
                                 <v-col cols="12" md="12" class="py-2 px-1">
+                                  <!-- Botones para descargar y limpiar -->
                                   <v-tooltip top>
                                     <template v-slot:activator="{ on }">
                                       <v-btn
@@ -71,6 +72,8 @@
                                       >Limpiar todos los filtros</span
                                     >
                                   </v-tooltip>
+
+                                  <!-- Desde acá empieza la tabla -->
                                   <v-data-table
                                     dense
                                     :headers="headers"
@@ -82,6 +85,7 @@
                                     }"
                                     :loading="loading_table"
                                   >
+                                    <!-- Cód. Prestamo -->
                                     <template
                                       v-slot:[`header.code_loan`]="{ header }"
                                     >
@@ -95,6 +99,8 @@
                                         {{ header.text }}
                                       </span>
                                     </template>
+
+                                    <!-- CI prestario -->
                                     <template
                                       v-slot:[`header.identity_card_borrower`]="{
                                         header,
@@ -110,6 +116,8 @@
                                         {{ header.text }}
                                       </span>
                                     </template>
+
+                                    <!-- Matricula prestatario -->
                                     <template
                                       v-slot:[`header.registration_borrower`]="{
                                         header,
@@ -125,6 +133,8 @@
                                         {{ header.text }}
                                       </span>
                                     </template>
+
+                                    <!-- Nombre completo prestatario -->
                                     <template
                                       v-slot:[`header.full_name_borrower`]="{
                                         header,
@@ -140,6 +150,8 @@
                                         {{ header.text }}
                                       </span>
                                     </template>
+
+                                    <!-- Corto sub modalidad -->
                                     <template
                                       v-slot:[`header.shortened_sub_modality_loan`]="{
                                         header,
@@ -155,6 +167,50 @@
                                         {{ header.text }}
                                       </span>
                                     </template>
+                                    <!-- <template
+                                      v-slot:[`header.shortened_sub_modality_loan`]="{
+                                        header
+                                      }"
+                                    >
+                                      {{ header.text }}<br />
+                                      <v-menu
+                                        offset-x
+                                        :close-on-content-click="false"
+                                      >
+                                        <template
+                                          v-slot:activator="{ on, attrs }"
+                                        >
+                                          <v-btn icon v-bind="attrs" v-on="on">
+                                            <v-icon
+                                              small
+                                              :color="
+                                                searching.shortened_sub_modality_loan !=
+                                                ''
+                                                  ? 'red'
+                                                  : 'black'
+                                              "
+                                            >
+                                              mdi-filter
+                                            </v-icon>
+                                          </v-btn>
+                                        </template>
+                                        <div>
+                                          <v-text-field
+                                            dense
+                                            v-model="
+                                              searching.shortened_sub_modality_loan
+                                            "
+                                            type="text"
+                                            :label="'Buscar ' + header.text"
+                                            @keydown.enter="search_loans()"
+                                            hide-details
+                                            single-line
+                                          ></v-text-field>
+                                        </div>
+                                      </v-menu>
+                                    </template> -->
+
+                                    <!-- Sector -->
                                     <template
                                       v-slot:[`header.state_type_affiliate`]="{
                                         header,
@@ -170,25 +226,26 @@
                                         {{ header.text }}
                                       </span>
                                     </template>
+
+                                    <!-- Corto sub modalidad -->
                                     <template
-                                      v-slot:[`item.guarantor_amortizing_loan`]="{
+                                      v-slot:[`item.shortened_sub_modality_loan`]="{
                                         item,
                                       }"
                                     >
-                                      <span
-                                        :class="
-                                          searching.guarantor_amortizing_loan
-                                            ? 'primary--text'
-                                            : ''
-                                        "
-                                      >
-                                        {{
-                                          item.guarantor_amortizing_loan == true
-                                            ? "T"
-                                            : "G"
-                                        }}
-                                      </span>
+                                      <v-tooltip top>
+                                        <template v-slot:activator="{ on }">
+                                          <span v-on="on">{{
+                                            item.shortened_sub_modality_loan
+                                          }}</span>
+                                        </template>
+                                        <span>{{
+                                          item.sub_modality_loan
+                                        }}</span>
+                                      </v-tooltip>
                                     </template>
+
+                                    <!-- Fecha de desembolso -->
                                     <template
                                       v-slot:[`item.disbursement_date_loan`]="{
                                         item,
@@ -200,7 +257,7 @@
                                       }}
                                     </template>
 
-                                    <!--  -->
+                                    <!-- Monto desenbolsado  -->
                                     <template
                                       v-slot:[`item.amount_approved_loan`]="{
                                         item,
@@ -209,7 +266,7 @@
                                       {{ item.amount_approved_loan | money }}
                                     </template>
 
-                                    <!--  -->
+                                    <!-- Capital -->
                                     <template
                                       v-slot:[`item.balance_loan`]="{ item }"
                                     >
@@ -222,6 +279,21 @@
                                     >
                                       {{ item.quota_loan | moneyString }}
                                     </template>
+
+                                    <!--Amortizar por  -->
+                                    <template
+                                      v-slot:[`item.guarantor_amortizing_loan`]="{
+                                        item,
+                                      }"
+                                    >
+                                      {{
+                                        item.guarantor_amortizing_loan == false
+                                          ? "T"
+                                          : "G"
+                                      }}
+                                    </template>
+
+                                    <!-- Acciones -->
                                     <template
                                       v-slot:[`item.actions`]="{ item }"
                                     >
@@ -398,15 +470,22 @@
                                           ></v-text-field>
                                         </td>
                                         <td>
-                                          <v-text-field
-                                            placeholder="Amortizar por"
-                                            spellcheck="false"
-                                            class="filter-text"
-                                            v-model="
-                                              searching.guarantor_amortizing_loan
-                                            "
-                                            @keydown.enter="search_loans()"
-                                          ></v-text-field>
+                                          <v-alert-field>
+                                            <v-select
+                                              dense
+                                              :items="items"
+                                              item-text="name"
+                                              item-value="value"
+                                              class="filter-text-alert"
+                                              v-model="
+                                                searching.guarantor_amortizing_loan
+                                              "
+                                              label="todos"
+                                              @change="search_loans()"
+                                              hide-details
+                                              single-line
+                                            ></v-select>
+                                          </v-alert-field>
                                         </td>
                                         <td>
                                           <v-text-field
@@ -776,7 +855,8 @@ export default {
 };
 </script>
 <style scoped>
-.v-text-field {
+.v-text-field,
+.v-alert-field {
   background-color: white;
   width: 200px;
   padding: 5px;
@@ -788,6 +868,14 @@ export default {
   font-size: 12px;
   height: 2px;
   margin: 0 0 40px 0;
+  padding: 0;
+  width: 100%;
+}
+.filter-text-alert {
+  color: #fafaf3;
+  font-size: 10px;
+  height: 2px;
+  margin: 0 0 30px 0;
   padding: 0;
   width: 100%;
 }
