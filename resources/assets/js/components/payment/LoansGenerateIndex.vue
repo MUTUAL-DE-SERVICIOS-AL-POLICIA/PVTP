@@ -26,7 +26,6 @@
                             <v-col cols="12" class="pa-0">
                               <v-layout row wrap>
                                 <v-col cols="12" md="12" class="py-2 px-1">
-                                  <!-- Botones para descargar y limpiar -->
                                   <v-tooltip top>
                                     <template v-slot:activator="{ on }">
                                       <v-btn
@@ -72,7 +71,6 @@
                                       >Limpiar todos los filtros</span
                                     >
                                   </v-tooltip>
-                                  <!-- Desde acá empieza la tabla -->
                                   <v-data-table
                                     dense
                                     :headers="headers"
@@ -84,7 +82,6 @@
                                     }"
                                     :loading="loading_table"
                                   >
-                                    <!-- Cód. Prestamo -->
                                     <template
                                       v-slot:[`header.code_loan`]="{ header }"
                                     >
@@ -98,47 +95,6 @@
                                         {{ header.text }}
                                       </span>
                                     </template>
-
-                                    <!-- 
-                                    <template
-                                      v-slot:[`header.code_loan`]="{ header }"
-                                    >
-                                      {{ header.text }}<br />
-                                      <v-menu
-                                        offset-x
-                                        :close-on-content-click="false"
-                                      >
-                                        <template
-                                          v-slot:activator="{ on, attrs }"
-                                        >
-                                          <v-btn icon v-bind="attrs" v-on="on">
-                                            <v-icon
-                                              small
-                                              :color="
-                                                searching.code_loan != ''
-                                                  ? 'red'
-                                                  : 'black'
-                                              "
-                                            >
-                                              mdi-filter
-                                            </v-icon>
-                                          </v-btn>
-                                        </template>
-                                        <div>
-                                          <v-text-field
-                                            dense
-                                            v-model="searching.code_loan"
-                                            type="text"
-                                            :label="'Buscar ' + header.text"
-                                            @keydown.enter="search_loans()"
-                                            hide-details
-                                            single-line
-                                          ></v-text-field>
-                                        </div>
-                                      </v-menu>
-                                    </template> -->
-
-                                    <!-- CI prestario -->
                                     <template
                                       v-slot:[`header.identity_card_borrower`]="{
                                         header,
@@ -154,50 +110,6 @@
                                         {{ header.text }}
                                       </span>
                                     </template>
-                                    <!-- <template
-                                      v-slot:[`header.identity_card_borrower`]="{
-                                        header
-                                      }"
-                                    >
-                                      {{ header.text }}<br />
-                                      <v-menu
-                                        offset-x
-                                        :close-on-content-click="false"
-                                      >
-                                        <template
-                                          v-slot:activator="{ on, attrs }"
-                                        >
-                                          <v-btn icon v-bind="attrs" v-on="on">
-                                            <v-icon
-                                              small
-                                              :color="
-                                                searching.identity_card_borrower !=
-                                                ''
-                                                  ? 'red'
-                                                  : 'black'
-                                              "
-                                            >
-                                              mdi-filter
-                                            </v-icon>
-                                          </v-btn>
-                                        </template>
-                                        <div>
-                                          <v-text-field
-                                            dense
-                                            v-model="
-                                              searching.identity_card_borrower
-                                            "
-                                            type="text"
-                                            :label="'Buscar ' + header.text"
-                                            @keydown.enter="search_loans()"
-                                            hide-details
-                                            single-line
-                                          ></v-text-field>
-                                        </div>
-                                      </v-menu>
-                                    </template> -->
-
-                                    <!-- Matricula prestatario -->
                                     <template
                                       v-slot:[`header.registration_borrower`]="{
                                         header,
@@ -213,50 +125,6 @@
                                         {{ header.text }}
                                       </span>
                                     </template>
-                                    <!-- <template
-                                      v-slot:[`header.registration_borrower`]="{
-                                        header
-                                      }"
-                                    >
-                                      {{ header.text }}<br />
-                                      <v-menu
-                                        offset-x
-                                        :close-on-content-click="false"
-                                      >
-                                        <template
-                                          v-slot:activator="{ on, attrs }"
-                                        >
-                                          <v-btn icon v-bind="attrs" v-on="on">
-                                            <v-icon
-                                              small
-                                              :color="
-                                                searching.registration_borrower !=
-                                                ''
-                                                  ? 'red'
-                                                  : 'black'
-                                              "
-                                            >
-                                              mdi-filter
-                                            </v-icon>
-                                          </v-btn>
-                                        </template>
-                                        <div>
-                                          <v-text-field
-                                            dense
-                                            v-model="
-                                              searching.registration_borrower
-                                            "
-                                            type="text"
-                                            :label="'Buscar ' + header.text"
-                                            @keydown.enter="search_loans()"
-                                            hide-details
-                                            single-line
-                                          ></v-text-field>
-                                        </div>
-                                      </v-menu>
-                                    </template> -->
-
-                                    <!-- Nombre completo prestatario -->
                                     <template
                                       v-slot:[`header.full_name_borrower`]="{
                                         header,
@@ -272,50 +140,6 @@
                                         {{ header.text }}
                                       </span>
                                     </template>
-                                    <!-- <template
-                                      v-slot:[`header.full_name_borrower`]="{
-                                        header
-                                      }"
-                                    >
-                                      {{ header.text }}<br />
-                                      <v-menu
-                                        offset-x
-                                        :close-on-content-click="false"
-                                      >
-                                        <template
-                                          v-slot:activator="{ on, attrs }"
-                                        >
-                                          <v-btn icon v-bind="attrs" v-on="on">
-                                            <v-icon
-                                              small
-                                              :color="
-                                                searching.full_name_borrower !=
-                                                ''
-                                                  ? 'red'
-                                                  : 'black'
-                                              "
-                                            >
-                                              mdi-filter
-                                            </v-icon>
-                                          </v-btn>
-                                        </template>
-                                        <div>
-                                          <v-text-field
-                                            dense
-                                            v-model="
-                                              searching.full_name_borrower
-                                            "
-                                            type="text"
-                                            :label="'Buscar ' + header.text"
-                                            @keydown.enter="search_loans()"
-                                            hide-details
-                                            single-line
-                                          ></v-text-field>
-                                        </div>
-                                      </v-menu>
-                                    </template> -->
-
-                                    <!-- Corto sub modalidad -->
                                     <template
                                       v-slot:[`header.shortened_sub_modality_loan`]="{
                                         header,
@@ -331,50 +155,6 @@
                                         {{ header.text }}
                                       </span>
                                     </template>
-                                    <!-- <template
-                                      v-slot:[`header.shortened_sub_modality_loan`]="{
-                                        header
-                                      }"
-                                    >
-                                      {{ header.text }}<br />
-                                      <v-menu
-                                        offset-x
-                                        :close-on-content-click="false"
-                                      >
-                                        <template
-                                          v-slot:activator="{ on, attrs }"
-                                        >
-                                          <v-btn icon v-bind="attrs" v-on="on">
-                                            <v-icon
-                                              small
-                                              :color="
-                                                searching.shortened_sub_modality_loan !=
-                                                ''
-                                                  ? 'red'
-                                                  : 'black'
-                                              "
-                                            >
-                                              mdi-filter
-                                            </v-icon>
-                                          </v-btn>
-                                        </template>
-                                        <div>
-                                          <v-text-field
-                                            dense
-                                            v-model="
-                                              searching.shortened_sub_modality_loan
-                                            "
-                                            type="text"
-                                            :label="'Buscar ' + header.text"
-                                            @keydown.enter="search_loans()"
-                                            hide-details
-                                            single-line
-                                          ></v-text-field>
-                                        </div>
-                                      </v-menu>
-                                    </template> -->
-
-                                    <!-- Sector -->
                                     <template
                                       v-slot:[`header.state_type_affiliate`]="{
                                         header,
@@ -390,50 +170,6 @@
                                         {{ header.text }}
                                       </span>
                                     </template>
-                                    <!-- <template
-                                      v-slot:[`header.state_type_affiliate`]="{
-                                        header
-                                      }"
-                                    >
-                                      {{ header.text }}<br />
-                                      <v-menu
-                                        offset-x
-                                        :close-on-content-click="false"
-                                      >
-                                        <template
-                                          v-slot:activator="{ on, attrs }"
-                                        >
-                                          <v-btn icon v-bind="attrs" v-on="on">
-                                            <v-icon
-                                              small
-                                              :color="
-                                                searching.state_type_affiliate !=
-                                                ''
-                                                  ? 'red'
-                                                  : 'black'
-                                              "
-                                            >
-                                              mdi-filter
-                                            </v-icon>
-                                          </v-btn>
-                                        </template>
-                                        <div>
-                                          <v-text-field
-                                            dense
-                                            v-model="
-                                              searching.state_type_affiliate
-                                            "
-                                            type="text"
-                                            :label="'Buscar ' + header.text"
-                                            @keydown.enter="search_loans()"
-                                            hide-details
-                                            single-line
-                                          ></v-text-field>
-                                        </div>
-                                      </v-menu>
-                                    </template> -->
-
-                                    <!-- Amortizar por -->
                                     <template
                                       v-slot:[`item.guarantor_amortizing_loan`]="{
                                         item,
@@ -453,73 +189,6 @@
                                         }}
                                       </span>
                                     </template>
-
-                                    <!-- <template
-                                      v-slot:[`header.guarantor_amortizing_loan`]="{
-                                        header
-                                      }"
-                                    >
-                                      {{ header.text
-                                      }}{{ searching.guarantor_amortizing_loan
-                                      }}<br />
-                                      <v-menu
-                                        offset-y
-                                        :close-on-content-click="false"
-                                      >
-                                        <template
-                                          v-slot:activator="{ on, attrs }"
-                                        >
-                                          <v-btn icon v-bind="attrs" v-on="on">
-                                            <v-icon
-                                              small
-                                              :color="
-                                                searching.guarantor_amortizing_loan !=
-                                                ''
-                                                  ? 'red'
-                                                  : 'black'
-                                              "
-                                            >
-                                              mdi-filter
-                                            </v-icon>
-                                          </v-btn>
-                                        </template>
-                                        <div>
-                                          <v-select
-                                            dense
-                                            :items="items"
-                                            item-text="name"
-                                            item-value="value"
-                                            v-model="
-                                              searching.guarantor_amortizing_loan
-                                            "
-                                            :label="'Buscar ' + header.text"
-                                            @change="search_loans()"
-                                            hide-details
-                                            single-line
-                                          ></v-select>
-                                        </div>
-                                      </v-menu>
-                                    </template> -->
-
-                                    <!-- Corto sub modalidad -->
-                                    <!-- <template
-                                      v-slot:[`item.shortened_sub_modality_loan`]="{
-                                        item
-                                      }"
-                                    >
-                                      <v-tooltip top>
-                                        <template v-slot:activator="{ on }">
-                                          <span v-on="on">{{
-                                            item.shortened_sub_modality_loan
-                                          }}</span>
-                                        </template>
-                                        <span>{{
-                                          item.sub_modality_loan
-                                        }}</span>
-                                      </v-tooltip>
-                                    </template> -->
-
-                                    <!-- Fecha de desembolso -->
                                     <template
                                       v-slot:[`item.disbursement_date_loan`]="{
                                         item,
@@ -553,20 +222,6 @@
                                     >
                                       {{ item.quota_loan | moneyString }}
                                     </template>
-
-                                    <!--Amortizar por  -->
-                                    <!-- <template
-                                      v-slot:[`item.guarantor_amortizing_loan`]="{
-                                        item
-                                      }"
-                                    >
-                                      {{
-                                        item.guarantor_amortizing_loan == false
-                                          ? "T"
-                                          : "G"
-                                      }}
-                                    </template> -->
-
                                     <template
                                       v-slot:[`item.actions`]="{ item }"
                                     >
