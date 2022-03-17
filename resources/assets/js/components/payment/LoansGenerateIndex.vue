@@ -166,50 +166,7 @@
                                       >
                                         {{ header.text }}
                                       </span>
-                                    </template>
-                                    <!-- <template
-                                      v-slot:[`header.shortened_sub_modality_loan`]="{
-                                        header
-                                      }"
-                                    >
-                                      {{ header.text }}<br />
-                                      <v-menu
-                                        offset-x
-                                        :close-on-content-click="false"
-                                      >
-                                        <template
-                                          v-slot:activator="{ on, attrs }"
-                                        >
-                                          <v-btn icon v-bind="attrs" v-on="on">
-                                            <v-icon
-                                              small
-                                              :color="
-                                                searching.shortened_sub_modality_loan !=
-                                                ''
-                                                  ? 'red'
-                                                  : 'black'
-                                              "
-                                            >
-                                              mdi-filter
-                                            </v-icon>
-                                          </v-btn>
-                                        </template>
-                                        <div>
-                                          <v-text-field
-                                            dense
-                                            v-model="
-                                              searching.shortened_sub_modality_loan
-                                            "
-                                            type="text"
-                                            :label="'Buscar ' + header.text"
-                                            @keydown.enter="search_loans()"
-                                            hide-details
-                                            single-line
-                                          ></v-text-field>
-                                        </div>
-                                      </v-menu>
-                                    </template> -->
-
+                                    </template>                                    
                                     <!-- Sector -->
                                     <template
                                       v-slot:[`header.state_type_affiliate`]="{
@@ -487,7 +444,7 @@
                                             ></v-select>
                                           </v-alert-field>
                                         </td>
-                                        <td>
+                                        <td>                              
                                           <v-text-field
                                             disabled
                                             class="filter-text"
