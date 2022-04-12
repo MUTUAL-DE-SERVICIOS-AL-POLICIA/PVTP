@@ -74,7 +74,6 @@ class LoanController extends Controller
         $loan->observations = $loan->observations->last();
         $loan->modality=$loan->modality->procedure_type;
         $loan->tags = $loan->tags;
-        $loan->affiliate = $loan->affiliate;
         if($loan->parent_loan){
             $loan->parent_loan->balance = $loan->parent_loan->balance;
             $loan->parent_loan->estimated_quota = $loan->parent_loan->estimated_quota;
@@ -370,9 +369,9 @@ class LoanController extends Controller
         if (Auth::user()->can('show-all-loan') || Auth::user()->can('show-loan') || Auth::user()->can('show-payment-loan') || Auth::user()->roles()->whereHas('module', function($query) {
             return $query->whereName('prestamos');
         })->pluck('id')->contains($loan->role_id)) {
-            $loan = self::append_data($loan);$loan->borrower = $loan->borrower;
-            foreach($loan->borrower as $borrower){
-                $borrower->type_initials = "T-".$borrower->initials;
+            $loan = self::append_data($loan, true);
+            foreach($loan->borrower as $lender){
+                $lender->type_initials = "T-".$lender->initials;
             }
             foreach($loan->guarantors as $guarantor){
                 $guarantor->type_initials = "G-".$guarantor->initials;
@@ -1813,32 +1812,38 @@ class LoanController extends Controller
     //Destruir todo el préstamo
     public function destroyAll(Loan $loan)
     {
-       if($loan->payments){
-            if($loan->data_loan) $loan->data_loan->forceDelete();
+        DB::beginTransaction();
+        try{
+            if($loan->payments){
+                    if($loan->data_loan) $loan->data_loan->forceDelete();
 
-            if($loan->loan_contribution_adjusts) $loan->loan_contribution_adjusts()->forceDelete();
+                    if($loan->loan_contribution_adjusts) $loan->loan_contribution_adjusts()->forceDelete();
 
-            if($loan->loan_persons) $loan->loan_persons()->detach();
-            
-            if($loan->submitted_documents) $loan->submitted_documents()->detach();
-            
-            if($loan->tags) $loan->tags()->detach();
-            //if($loan->lenders) $loan->lenders()->detach();
-            if($loan->borrower) $loan->destroy_borrower();
-            //if($loan->guarantors) $loan->guarantors()->detach();
-            if($loan->guarantors) $loan->destroy_guarantors();
-            //$loan->forceDelete();
-            $options=[$loan->id];
-            $loan = Loan::withoutEvents(function() use($options){
-                $loan = Loan::findOrFail($options[0])->forceDelete();
-                return $loan;
-            }
-        );
-
-       }else{
-        abort(403, 'No se puede reahacer el préstamo existen registros de cobros');
-       } 
-    return $loan;
+                    if($loan->loan_persons) $loan->loan_persons()->detach();
+                    
+                    if($loan->submitted_documents) $loan->submitted_documents()->detach();
+                    
+                    if($loan->tags) $loan->tags()->detach();
+                    //if($loan->lenders) $loan->lenders()->detach();
+                    if($loan->borrower) $loan->destroy_borrower();
+                    //if($loan->guarantors) $loan->guarantors()->detach();
+                    if($loan->guarantors) $loan->destroy_guarantors();
+                    //$loan->forceDelete();
+                    $options=[$loan->id];
+                    $loan = Loan::withoutEvents(function() use($options){
+                        $loan = Loan::findOrFail($options[0])->forceDelete();
+                        return $loan;
+                    }
+                );
+                DB::commit();
+            }else{
+                abort(403, 'No se puede reahacer el préstamo existen registros de cobros');
+            } 
+            return $loan;
+        } catch (\Exception $e) {
+            DB::rollback();
+            return $e;
+        }
     }
 
     //actualizar el record de todo el prestamo anterior al actual
