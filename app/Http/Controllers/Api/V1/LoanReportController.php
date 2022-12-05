@@ -803,6 +803,10 @@ class LoanReportController extends Controller
     */
     public function loan_information(Request $request)
     {
+        // aumenta el tiempo máximo de ejecución de este script a 150 min:
+        ini_set('max_execution_time', 9000);
+        // aumentar el tamaño de memoria permitido de este script:
+        ini_set('memory_limit', '960M');
         $month = Carbon::parse($request->date)->format('m');
         $year = Carbon::parse($request->date)->format('Y');
         $loans = Loan::whereMonth('disbursement_date', $month)->whereYear('disbursement_date', $year)->orderBy('disbursement_date')->get();
@@ -1276,7 +1280,74 @@ class LoanReportController extends Controller
          return Excel::download($export, $file_name.$extension);
     }
  
-    
+    public function loan_information_v2(Request $request)
+    {   
+        // aumenta el tiempo máximo de ejecución de este script a 150 min:
+        ini_set('max_execution_time', 9000);
+        // aumentar el tamaño de memoria permitido de este script:
+        ini_set('memory_limit', '960M');
+
+        $final_date = request('date') ? Carbon::parse(request('date'))->endOfDay() : Carbon::now()->endOfDay();
+        $month = $final_date->month;
+        $year = $final_date->year;
+
+        $header = array(
+            "CI AFILIADO", "NOMBRE COMPLETO AFILIADO", "***",
+            "COD PRESTAMO", "FECHA DE DESEMBOLSO", "CI",
+            "APELLIDO PATERNO", "APELLIDO MATERNO", "APELLIDO DE CASADA",
+            "PRIMER NOMBRE", "SEGUNDO NOMBRE", "SALDO ACTUAL",
+            "CUOTA FIJA MENSUAL", "DESCUENTO PROGRAMADO", "INTERES", "Amort. TIT o GAR?"
+        );
+
+        $data = collect();
+        $data->before_command = array($header);
+        $data->before_senasir = array($header);
+        $data->later_command = array($header);
+        $data->later_senasir = array($header);
+        $data->ancient_command = array($header);
+        $data->ancient_senasir = array($header);
+
+        $loans = DB::select("select * from loan_information(?)",[$final_date]);
+        //print_r($loans);
+
+        foreach($loans as $loan){
+            $data_body = array(
+                $loan->identity_card_affiliate,
+                $loan->fullname_affiliate,
+                $loan->code_loan,
+                $loan->disbursement_date_loan,
+                $loan->identity_card_borrower,
+                $loan->last_name_borrower,
+                $loan->mothers_last_name_borrower,
+                $loan->surname_husband_borrower,
+                $loan->first_name_borrower,
+                $loan->second_name_borrower,
+                $loan->balance_loan,
+                $loan->estimated_quota,
+                $loan->get_amount_payment,
+                $loan->annual_interest,
+                $loan->guarantor_amortizing
+            );
+
+            switch($loan->sheet){
+                case 'before':
+                    if($loan->type == 'comando'){array_push($data->before_command,$data_body);}else{array_push($data->before_senasir,$data_body);}
+                    break;
+                case 'later':
+                    if($loan->type == 'comando'){array_push($data->later_command,$data_body);}else{array_push($data->later_senasir,$data_body);}
+                    break;
+                case 'ancient':
+                    if($loan->type == 'comando'){array_push($data->ancient_command,$data_body);}else{array_push($data->ancient_senasir,$data_body);}
+                    break;
+            }
+        }
+        // ARREGLAR EL TEMA DE MONTH
+        $file_name = $month.'-'.$year;
+        $extension = '.xls';
+        $export = new FileWithMultipleSheetsReport($data->later_command, $data->before_command, $data->later_senasir, $data->before_senasir, $data->ancient_command, $data->ancient_senasir);
+        return Excel::download($export, $file_name.$extension);
+    }
+
     /** @group Reportes de Prestamos
      * Reporte descuentos por garantia
      * reporte de prestamos amortizados por los garantes

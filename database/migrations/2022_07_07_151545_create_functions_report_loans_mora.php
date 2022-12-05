@@ -13,8 +13,9 @@ class CreateFunctionsReportLoansMora extends Migration
      */
     public function up()
     {   
-        DB::statement("
-            CREATE OR REPLACE FUNCTION public.days_mora(
+        
+    DB::statement("
+    CREATE OR REPLACE FUNCTION public.days_mora(
                 id_loan bigint,
                 rqst_date date,
                 type_mora character varying)
@@ -113,9 +114,10 @@ class CreateFunctionsReportLoansMora extends Migration
                      into balance
                      from loans l
                      where l.id = id_loan;
-                return round(coalesce(balance,0),4);
+                return round(coalesce(balance,0),2);
                 end;
-            $$;");
+            $$;
+        ");
 
         DB::statement("
             CREATE OR REPLACE FUNCTION public.estimated_quota(
@@ -131,7 +133,7 @@ class CreateFunctionsReportLoansMora extends Migration
                     from loans l
                     where l.id = id_loan;
                     
-                    return round(estimated_quota,4);
+                    return round(estimated_quota,2)::numeric;
                 END
             $$;");
 
@@ -405,7 +407,7 @@ class CreateFunctionsReportLoansMora extends Migration
     {
         DB::statement("
             DROP FUNCTION days_mora;");
-            DB::statement("
+        DB::statement("
             DROP FUNCTION loans_mora_data;");
         DB::statement("
             DROP FUNCTION list_loans_mora;");
