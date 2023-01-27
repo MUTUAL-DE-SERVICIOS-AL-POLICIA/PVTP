@@ -1,10 +1,10 @@
 <template>
-  <v-container fluid class="ma-0 pa-0">
+  <v-container fluid class="px-0">
     <v-row>
       <v-col cols="12" class="text-center">
         <v-row>
-          <v-col cols="12" class="text-center py-0" style="margin-bottom:10px">
-            <v-card class="py-0" color="#151515" dark max-width="100%" max-height="500">
+          <v-col cols="12" class="text-center" style="margin-bottom:10px">
+            <v-card color="#151515" dark max-width="100%" max-height="500">
               <v-card-text class="headline font-weight-bold">
 
                 <v-row>
