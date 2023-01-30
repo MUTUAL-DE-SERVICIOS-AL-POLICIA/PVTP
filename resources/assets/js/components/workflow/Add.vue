@@ -278,7 +278,7 @@
                     right
                     absolute
                     v-on="on"
-                    style="margin-right: 40px; margin-top: 38px;"
+                    style="margin-right: 40px; margin-top: 25px;"
                     @click="imprimirRecive($route.params.id)"
                     >
                     <v-icon>mdi-badge-account-horizontal</v-icon>
@@ -298,7 +298,7 @@
                     right
                     absolute
                     v-on="on"
-                    style="margin-right: -9px; margin-top: 48px;"
+                    style="margin-top: 25px;"
                     @click="imprimir($route.params.id)"
                   >
                     <v-icon>mdi-printer</v-icon>
@@ -321,7 +321,7 @@
                     right
                     absolute
                     v-on="on"
-                    style="margin-right: -9px;margin-top: 48px;"
+                    style="margin-top: 25px;"
                     @click="printQualificationForm($route.params.id)"
                   >
                     <v-icon>mdi-printer-check</v-icon>

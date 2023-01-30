@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid class="mt-0 pt-0">
+  <v-container fluid class="mt-0">
     <v-row>
       <v-col cols="12" class="pb-0 mb-0">
         <p style="color: teal">

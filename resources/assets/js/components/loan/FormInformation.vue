@@ -5,12 +5,12 @@
         <v-col cols="12">
           <ValidationObserver ref="observerDestiny">
             <v-form>
-              <v-container class="py-0">
+              <v-container>
                 <v-row>
-                  <v-col cols="12" md="2" class="py-0">
+                  <v-col cols="12" md="2">
                     <label>Tipo de Depósitos:</label>
                   </v-col>
-                  <v-col cols="12" md="3" class="py-0">
+                  <v-col cols="12" md="3">
                     <ValidationProvider v-slot="{ errors }" name="Tipo Desembolso" rules="required">
                       <v-select
                         class="py-0"
@@ -309,10 +309,10 @@
           />
       </v-row>
     </v-card>
-    <v-container class="py-0">
+    <v-container>
           <v-row>
             <v-spacer></v-spacer><v-spacer></v-spacer><v-spacer></v-spacer>
-              <v-col class="py-0 pt-2">
+              <v-col>
                 <v-btn text
                 @click="beforeStepBus(5)">Atras</v-btn>
                 <v-btn

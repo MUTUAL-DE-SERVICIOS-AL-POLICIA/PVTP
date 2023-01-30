@@ -131,7 +131,7 @@
       <v-spacer></v-spacer>
       <v-spacer></v-spacer>
       <v-spacer></v-spacer>
-      <v-col class="py-0">
+      <v-col>
         <v-btn
         text
         @click="beforeStepBus(6)">Atras</v-btn>

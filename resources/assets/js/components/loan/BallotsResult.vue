@@ -6,7 +6,6 @@
         <v-row justify="center">
           <v-col cols="2" class="py-2" v-show="show_parent_sismu || (($route.params.hash == 'remake' && data_loan_parent_aux.parent_reason != null))">
               <v-text-field
-                class="py-0"
                 dense
                 :outlined="enable_sismu"
                 :readonly="!enable_sismu"
@@ -148,12 +147,12 @@
                     </v-layout>
                   </v-card-text>
                 </v-col>
-                <v-col cols="12" md="3" class="ma-0 py-0" v-show="data_sismu.livelihood_amount" v-if="liquid_calificated[0].guarantees.length > 0" ></v-col>
+                <v-col cols="12" md="3" v-show="data_sismu.livelihood_amount" v-if="liquid_calificated[0].guarantees.length > 0" ></v-col>
                   <v-col cols="12" md="8" v-show="data_sismu.livelihood_amount"  class="pa-0"  v-if="liquid_calificated[0].guarantees.length > 0">
-                  <v-card-text class="py-0">
+                  <v-card-text>
                     <v-layout row wrap>
                       <v-flex xs12 class="px-2">
-                        <fieldset class="py-0">
+                        <fieldset>
                               <p class="mb-1"><b class="red--text caption mb-0" >DESCUENTO DE CUOTAS POR GARANTIAS: {{liquid_calificated[0].guarantees.length}} </b></p>
                                <ul style="list-style: none" class="py-0 ps-0 ">
                                 <li v-for="(guarantees,j) in liquid_calificated[0].guarantees" :key="j" >

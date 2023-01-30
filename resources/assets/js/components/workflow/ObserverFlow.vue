@@ -1,9 +1,9 @@
 <template>
   <v-container fluid class="pl-0 pt-0">
     <v-row justify="center" class="py-0">
-      <v-col cols="12" class="py-0">
-        <v-row justify="center" class="py-0">
-          <v-col cols="12" class="py-0">
+      <v-col cols="12">
+        <v-row justify="center">
+          <v-col cols="12">
             <v-tabs dark active-class="secondary">
               <v-tab>OBSERVACIONES</v-tab>
               <v-tab-item>

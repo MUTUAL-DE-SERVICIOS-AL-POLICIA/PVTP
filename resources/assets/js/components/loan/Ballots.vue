@@ -7,13 +7,13 @@
             <ValidationObserver ref="observer" >
               <v-container fluid >
                 <v-row justify="center" class="py-0 my-0">
-                  <v-col cols="12" class="py-0 -my-0" >
+                  <v-col cols="12"  >
                     <v-container class="py-0 my-0 teal--text">
                       <v-row>
                         <v-col cols="12" :md="window_size" class="py-0 my-0 text-center">
                           <strong>MODALIDAD DEL PRÉSTAMO</strong><br>
                           <v-row>
-                            <v-col cols="12" md="10" class="py-0 -my-0">
+                            <v-col cols="12" md="10" class="py-0 -my-0 mt-4">
                           <v-select
                             dense
                             v-model="loanTypeSelected.id"

@@ -1056,7 +1056,7 @@
                                               right
                                               absolute
                                               v-on="on"
-                                              style="margin-right: 45px;"
+                                              style="margin-right: 45px;margin-top:15px"
                                               @click.stop="resetForm()"
                                               v-show="edit_disbursement"
                                             >
@@ -1078,7 +1078,7 @@
                                               right
                                               absolute
                                               v-on="on"
-                                              style="margin-right: -9px;"
+                                              style="margin-right: -9px; margin-top:15px"
                                               @click.stop="editLoan()"
                                             >
                                               <v-icon v-if="edit_disbursement">mdi-check</v-icon>
@@ -1086,7 +1086,7 @@
                                             </v-btn>
                                           </template>
                                           <div>
-                                            <span v-if="edit_disbursement">Guardar</span>
+                                            <span v-if="edit_disbursement">Guardarkkk</span>
                                             <span v-else>Editar</span>
                                           </div>
                                         </v-tooltip>
