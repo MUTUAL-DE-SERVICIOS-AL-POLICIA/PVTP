@@ -20,6 +20,16 @@ class ProcedureModalitySeeder extends Seeder
         ['procedure_type_id'=>12,'name'=>'Largo Plazo con Garantía Personal en Comisión','shortened'=>'LAR-COM','is_valid'=>true ],
         ['procedure_type_id'=>12,'name'=>'Largo Plazo con Garantía Personal en Disponibilidad','shortened'=>'LAR-DIS','is_valid'=>true ],
         ['procedure_type_id'=>11,'name'=>'Refinanciamiento de Préstamo a Corto Plazo en Disponibilidad','shortened'=>'REF-COR-DIS','is_valid'=>true ],
+        //REGGLAMENTO 2023
+        ['procedure_type_id'=>12,'name'=>'Largo Plazo con Garantía Personal con un Solo Garante Sector Activo','shortened'=>'LAR-1G','is_valid'=>true],
+        ['procedure_type_id'=>12,'name'=>'Largo Plazo con Garantía Personal con dos Garantes Sector Activo','shortened'=>'LAR-2G','is_valid'=>true],
+        ['procedure_type_id'=>12,'name'=>'Largo Plazo PPO con un Solo Garante Sector Activo','shortened'=>'LAR-PPO-1G','is_valid'=>true],
+        ['procedure_type_id'=>12,'name'=>'Largo Plazo PPO con dos Garantes Sector Activo','shortened'=>'LAR-PPO-2G','is_valid'=>true],
+        ['procedure_type_id'=>13,'name'=>'Refinanciamiento de Préstamo a Largo Plazo con un Solo Garante Sector Activo','shortened'=>'REF-LAR-1G','is_valid'=>true],
+        ['procedure_type_id'=>13,'name'=>'Refinanciamiento de Préstamo a Largo Plazo con dos Garantes Sector Activo','shortened'=>'REF-LAR-2G','is_valid'=>true],
+        ['procedure_type_id'=>13,'name'=>'Refinanciamiento de Préstamo a Largo Plazo PPO con un Solo Garante Sector Activo','shortened'=>'REF-LAR-PPO-1G','is_valid'=>true],
+        ['procedure_type_id'=>13,'name'=>'Refinanciamiento de Préstamo a Largo Plazo PPO con dos Garantes Sector Activo','shortened'=>'REF-LAR-PPO-2G','is_valid'=>true],
+        
         ];
         foreach ($procedure_modalities as $procedure_modality) {
             ProcedureModality::firstOrCreate($procedure_modality);
