@@ -22,7 +22,7 @@
     <div class="block">
         <table style="font-size:11px;" class="table-info w-100 text-center uppercase my-10">
             <tr class="bg-grey-darker text-white">
-                <td class="w-25">Código Tŕamite</td>
+                <td class="w-25">N° de préstamo</td>
                 @if ($loan->parent_loan || $loan->parent_reason)
                 <td class="w-25">Trámite origen</td>
                 @endif
@@ -68,7 +68,7 @@
     </div>
 
     <div class="block">
-        <div class="font-semibold leading-tight text-left m-b-10 text-sm">{{ $n++ }}. DATOS DE{{ $plural ? ' LOS' : 'L' }} TITULAR{{ $plural ? 'ES' : ''}}</div>
+        <div class="font-semibold leading-tight text-left m-b-10 text-sm">{{ $n++ }}. DATOS DE{{ $plural ? ' LOS' : 'L' }} SOLICITANTE{{ $plural ? 'S' : ''}}</div>
     </div>
     
     <div class="block">
@@ -122,6 +122,7 @@
                     <td colspan="2" class="data-row py-5">{{ $lender->registration }}</td>
                 @endif
             </tr>   
+            @if (!$loan->modality->loan_modality_parameter->avc)
                 @if(count($lender->loans_balance)>0)
                 <tr class="bg-grey-darker text-white">
                     <td>Codigo de Prestamo</td>
@@ -137,13 +138,34 @@
                         @endforeach
                 </tr>
                 @endif
+            @endif
         </table>
         @endforeach
     </div>
 
+    @if ($loan->modality->loan_modality_parameter->avc)
+    <div class="block">
+        <div class="font-semibold leading-tight text-left m-b-10 text-sm">{{ $n++ }}. AUTORIZACIÓN DEL APORTE VOLUNTARIO COMPENSADO - GARANTÍA VOLUNTARIA</div>
+    </div>
+
+    <table style="font-size:11px;" class="table-info w-100 text-center uppercase my-10">
+        <tr class="bg-grey-darker text-white">
+            <td class="w-60">Datos titular</td>
+            <td class="w-20">N° de préstamo</td>
+            <td class="w-20">Garantía voluntaria AVC (20%)</td>
+        </tr>
+        <tr> 
+            <td class="data-row py-5">{{ $lender->title && $lender->type=="affiliates" ? $lender->title() : '' }} {{ $lender->full_name }}</td>
+            <td class="data-row py-5">{{ $loan->code }}</td> 
+            @php ($avc = $loan->amount_approved * 0.2)
+            <td class="data-row py-5">{{ Util::money_format($avc) }}</td> 
+        </tr>
+    </table>
+    @endif
+
     @if ($loan->guarantors()->count())
     <div class="block">
-        <div class="font-semibold leading-tight text-left m-b-10 text-sm">{{ $n++ }}. DATOS DE{{ $plural ? ' LOS' : 'L' }} GARANTE{{ $plural ? 'S' : ''}}</div>
+        <div class="font-semibold leading-tight text-left m-b-10 text-sm">{{ $n++ }}. DATOS DE{{ $plural ? ' LOS' : 'L' }} GARANTE{{ $plural ? 'S' : ''}} - GARANTÍA PERSONAL</div>
     </div>
 
     <div class="block ">
@@ -298,6 +320,18 @@
     <div style="page-break-after: always"></div>
     @endif
     <br>
+
+    @if ($loan->modality->loan_modality_parameter->avc)
+    <div style="font-size:10px;" class="block  text-justify ">
+        <div>
+            De acuerdo al art. 16 parágrafo II del Reglamento de Préstamos, en mi condición de titular autorizo a MUSERPOL a la concesión del aporte voluntario compensado (AVC) del 20% sobre el monto desembolsado, mismo que de forma automática al cierre del mismo me será compensado de acuerdo al art. 78 del Reglamento de Préstamos.
+        </div>
+        <div>
+            La presente solicitud se constituye en una DECLARACIÓN JURADA, consignándose los datos proporcionados por los solicitantes como fidedignos por lo que autorizan de manera expresa a la MUSERPOL acceder a la validación de su información personal mediante el Comando General de la Policía Boliviana, Servicio General de Identificación Personal - SEGIP, Servicio de Registro Cívico - SERECI, Servicio Nacional de Sistema de Reparto - SENASIR, GESTORA PÚBLICA DE LA SEGURIDAD SOCIAL DE LARGO PLAZO, Autoridad de Fiscalización y Control de Pensiones y Seguros - APS y otras Instituciones Públicas y/o Privadas,
+        </div>
+        <br>
+    </div>
+    @else
     <div style="font-size:10px;" class="block  text-justify ">
         <div>
         La presente solicitud se constituye en una <b>DECLARACION JURADA</b>, consignándose los datos proporcionados por los interesados como fidedignos; por lo que, autorizan de manera expresa a la <b>MUSERPOL</b> acceder a la validación y/o contrastación de su información personal mediante el Comando General de la Policía Boliviana, Servicio General de Identificación Personal – SEGIP, Servicio de Registro Cívico – SERECI, Servicio Nacional de Sistema de Reparto – SENASIR, Autoridad de Fiscalizacion y Control de Pensiones y Seguros - APS y otras instituciones públicas o privadas.
@@ -307,6 +341,8 @@
         </div>
         <br>
     </div>
+    @endif
+
     <div class="block no-page-break">
     </div>
     <!--<hr class="my-20" style="margin-top: 0; padding-top: 0;">-->
