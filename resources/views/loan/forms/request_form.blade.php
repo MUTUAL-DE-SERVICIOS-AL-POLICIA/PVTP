@@ -157,6 +157,7 @@
         <tr> 
             <td class="data-row py-5">{{ $lender->title && $lender->type=="affiliates" ? $lender->title() : '' }} {{ $lender->full_name }}</td>
             <td class="data-row py-5">{{ $loan->code }}</td> 
+            {{-- obtener la información del 20% del campo implementado en la tabla de bdd --}}
             @php ($avc = $loan->amount_approved * 0.2)
             <td class="data-row py-5">{{ Util::money_format($avc) }}</td> 
         </tr>
