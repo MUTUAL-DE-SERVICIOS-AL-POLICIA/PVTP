@@ -205,7 +205,7 @@
               </v-row>
             </v-card-text>
             <v-progress-linear color="white" :style="{ height: period_type === 'COMANDO' ? '5px' : '2px' }"></v-progress-linear>
-            <v-card-text v-if="period_type==='COMANDO'" class="blue-grey lighten-5" >
+            <!--<v-card-text v-if="period_type==='COMANDO'" class="blue-grey lighten-5" >
               <v-row >
                 <v-col cols="12" md="8" class="py-0">
                   <b>Adicional <v-icon small>mdi-file-plus</v-icon></b>
@@ -277,7 +277,7 @@
               </v-col>
 
             </v-row>
-            </v-card-text>
+            </v-card-text>-->
             <v-card-actions class="blue-grey lighten-5">
               <v-spacer></v-spacer>
               <!-- <v-tooltip top v-if="period_type==='COMANDO'" class="my-0">

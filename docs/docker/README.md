@@ -21,6 +21,12 @@ cp -f docs/docker/docker-compose.yml laradock/
 cp -f docs/docker/env-example laradock/.env
 ```
 
+* Copiar el archivo Dockerfile en la carpeta php-fpm de laradock:
+
+```sh
+cp -f docs/docker/Dockerfile laradock/php-fpm/
+```
+
 * Ingresar al directorio laradock:
 
 ```sh
